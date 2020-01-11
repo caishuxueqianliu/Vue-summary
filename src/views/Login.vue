@@ -1,17 +1,28 @@
 <template>
-  <div>
+
   <div class="login">
     
 
-    <div class='header'>div</div>
-    	   <div class='main'>
+    
     <div class='left'>div</div>
- <div class='content'>div</div>
+ <div class='content'>
+   
 
-     </div>
- <div class=footer>div</div>
 
+<form>
+
+
+      <label for="validationServer01">First name</label>
+      <input type="text" class="form-control is-valid" id="validationServer01" value="Mark" required pattern="[A-z]{3}">
+      <div class="valid-feedback">
+        Looks good!
+     
+    </div>
+
+</form>
  </div>
+ <div class='right'>div</div>
+ 
   </div>
 </template>
 
@@ -39,73 +50,59 @@ components:{}
 
 
 <style  lang="less" scoped="" type="text/css">
+ @media screen and (min-width: 768px){
+
+.login {
+
+    display:flex;
+    flex-direction: row;
+    height:100%;
+}
+
+
+.content {
+    background: palegoldenrod;
+    flex:0.6;
+}
+.left {
+  background: paleturquoise;
+ flex:0.2;
+
+}
+.right{
+  background: paleturquoise;
+ flex:0.2;
+
+}
+
+}
+
+
  @media screen and (max-width: 768px){
 
 .login {
 
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     height:100%;
 }
 
-.header,.footer {
-height:50px; 
-    background: pink;
-}
-
-
-
-.main {
-    display:flex;
-    flex-direction:column;
-    flex:1; 
-}
 
 .content {
     background: palegoldenrod;
     flex:1;
 }
-.left{
+.left {
   background: paleturquoise;
- flex:0.2;
+ flex:0;
+ display: none;
+
+}
+.right{
+  background: paleturquoise;
+ flex:0;
  display: none;
 }
 
-
- }
-
-
- @media screen and (min-width: 768px){
-.login {
-
-    display:flex;
-    flex-direction: column;
-    height:100%;
-}
-
-.header,.footer {
-flex:0.1; 
-    background: pink;
-}
-
-.main {
-    display:flex;
-    flex-direction:row;
-    flex:0.8; 
-}
-
-.content {
-    background: palegoldenrod;
-    flex:0.8;
-}
-
-.left{
-  background: paleturquoise;
-   flex:0.2;
-}
-
-.left {
-    order:-1;
-}
 }
 </style>
