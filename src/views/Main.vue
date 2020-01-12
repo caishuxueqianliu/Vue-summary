@@ -1,8 +1,6 @@
 <template>
-  <div>
-  <div class="login">
-    
 
+  <div class="login">  
     <div class='header'>div</div>
     	   <div class='main'>
     <div class='left'>div</div>
@@ -11,8 +9,8 @@
      </div>
  <div class=footer>div</div>
 
+ 
  </div>
-  </div>
 </template>
 
 <script>
@@ -39,13 +37,18 @@ components:{}
 
 
 <style  lang="less" scoped="" type="text/css">
+
  @media screen and (max-width: 768px){
 
 .login {
-
+position: absolute;
     display:flex;
     flex-direction: column;
-    height:100%;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+   
 }
 
 .header,.footer {
