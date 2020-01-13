@@ -4,7 +4,9 @@
     <div class='header'>div</div>
     	   <div class='main'>
     <div class='left'>div</div>
- <div class='content'>div</div>
+ <div class='content'>    
+
+ </div>
 
      </div>
  <div class=footer>div</div>

@@ -5,9 +5,7 @@
   </div>
 </template>
 
-<style  lang="less" scoped="" type="text/css">
 
-</style>
 <style type="text/css">
 
 
