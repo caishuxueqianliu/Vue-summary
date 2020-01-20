@@ -5,7 +5,7 @@
     	   <div class='main'>
     <div class='left'>div</div>
  <div class='content'>    
-
+  
  </div>
 
      </div>
@@ -17,17 +17,42 @@
 
 <script>
 export default {
-  name: 'main',
+ 
   data() {
     return {
-
+    token:''
        }
    },
 
-  created() {},
+  created() {
+    this.getToken()
+  },
   mounted() {},
   destroyed() {},
-  methods: {},
+  methods: {
+
+ async getToken(){ 
+
+         await this.$http.get("http://localhost:3000/login").then((datas)=>{
+            //console.log(datas)
+            this.token=datas.data;
+            //console.log(this.token)
+          })
+      //存储
+     await  sessionStorage.setItem('token', JSON.stringify(this.token));
+         // localStorage.setItem('key', JSON.stringify(info));
+         //获取
+         var data1 = JSON.parse(sessionStorage.getItem('token'));
+         //var data2 = JSON.parse(localStorage.getItem('key'));
+         console.log(data1)
+
+         //删除
+         // sessionStorage.removeItem('key');
+         // localStorage.removeItem('key');
+         // sessionStorage.clear();
+         //   localStorage.clear();
+      }
+  },
 
 computed:{},
 watch: {},
