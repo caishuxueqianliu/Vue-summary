@@ -9,10 +9,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 Vue.use(VueAxios, axios)
-
+axios.defaults.baseURL='http://127.0.0.1:3000/'
 import App from './App.vue'
 
-
+import qs from 'qs'
 
 
 new Vue({
