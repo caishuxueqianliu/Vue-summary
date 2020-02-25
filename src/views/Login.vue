@@ -1,8 +1,8 @@
 <template>
-  <div> 
+  <div class='all'> 
 
 
-<!-- <stars></stars> -->
+<stars></stars>
 
     <div class="box">
 
@@ -16,27 +16,27 @@
     leave-active-class="animated rollOut"
   >
  <div class='login'  v-if="show">
-<el-form ref="loginFormRef" label-width="100px" class="demo-ruleForm" >
+<el-form ref="loginFormRef" :model='loginForm' label-width="100px" class="demo-ruleForm" :rules="loginRules" >
     <el-form-item  >
     <p>login</p>
   </el-form-item>
 
-  <el-form-item >
-    <el-input class="srk" type="text" placeholder="username" v-model=" loginForm.username" name="username"></el-input>
+  <el-form-item prop="username" >
+    <el-input class="srk" type="text" placeholder="username" v-model="loginForm.username" name="username"></el-input>
   </el-form-item>
 
 
-  <el-form-item >
+  <el-form-item prop="password">
     <el-input class="srk" type="password" placeholder="password" v-model="loginForm.password" name='password'></el-input>
   </el-form-item>
  
-  <el-form-item >
+  <el-form-item prop="captcha">
 
 <div class='yzmall'>
 
   <img :src="url" @click="qh()"></src>
 
- <el-input class="yzm" type="text" placeholder="验证码" v-model="loginForm.yzm" name='yzm'></el-input>
+ <el-input class="yzm" type="text" placeholder="验证码" v-model="loginForm.captcha" name='captcha'></el-input>
 
 </div>
 
@@ -61,36 +61,36 @@
        <div class='logins'  v-if="shows">
           
 
-<el-form ref="ruleForm" label-width="100px" class="demo-ruleForm">
+<el-form ref="registerFormRef" :model='loginForm'label-width="100px" class="demo-ruleForm" :rules="registerRules">
   
     <el-form-item  >
     <p>register</p>
   </el-form-item>
-  <el-form-item  >
+  <el-form-item prop="username">
   
-    <el-input type="text" class="srk"  placeholder="username" v-model="registerFrom.username" ></el-input>
+    <el-input type="text" class="srk"  placeholder="username" v-model="loginForm.username" ></el-input>
   </el-form-item>
 
-  <el-form-item  >
-    <el-input type="text" class="srk" placeholder="password"  v-model="registerFrom.password"></el-input>
+  <el-form-item  prop="password">
+    <el-input type="text" class="srk" placeholder="password"  v-model="loginForm.password"></el-input>
   </el-form-item>
 
 
-  <el-form-item  >
-    <el-input  type="password" class="srk" placeholder="ispassword" v-model="registerFrom.ispassword"></el-input>
+  <el-form-item  prop="ispassword">
+    <el-input  type="password" class="srk" placeholder="ispassword" v-model="ispassword"></el-input>
   </el-form-item>
 
-  <el-form-item >
+  <el-form-item prop="captcha" >
    <div class='yzmall'>
 
   <img :src="url" @click="qh()"></src>
 
- <el-input class="yzm" type="text" placeholder="验证码" v-model="registerFrom.yzm" name='yzm'></el-input>
+ <el-input class="yzm" type="text" placeholder="验证码" v-model="loginForm.captcha" name='captcha'></el-input>
 
 </div>
   </el-form-item>
     <el-form-item >
-<el-button class='submit' @click="submitregister">register</el-button>
+<el-button class='submit' @click='submitregister()'>register</el-button>
   </el-form-item>
 </el-form>
           
@@ -110,27 +110,59 @@
 </template>
 <script>
   
-  import qs from 'qs'
+ import {reqLogin,reqRegister} from '../api/index.js'
   import stars from '../components/stars.vue'
 export default {
     data(){
+
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (value.length>6) {
+            callback(new Error('请输入合适的位数'))
+          }
+          callback();
+        }
+      };
         return{
               state:"切换注册",
-              loginForm:{
+                loginForm:{
                  username:'',
                  password:'',
-                 yzm:''
-              },
-             registerFrom:{
-                 username:'',
-                 password:'',
+                 captcha:""
+                   },
                  ispassword:'',
-                 yzm:''
-             },
-            
+               
+                
              show: true,
              shows:false,
-             url:'http://localhost:3000/captcha'
+             url:'http://localhost:3000/captcha',
+             loginRules: {
+               username: [
+               { required: true, trigger: 'blur', message: '请输入用户名' } ,
+              { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
+             ],
+               password: [{ validator: validatePass, trigger: 'blur' }],
+               captcha: [ 
+               { required: true, trigger: 'blur', message: '请输入验证码' } ,
+              { min:4 , max: 4, message: '长度为4字符', trigger: 'blur' }
+               ]
+             },
+             registerRules:{
+               username: [
+               { required: true, trigger: 'blur', message: '请输入用户名' } ,
+              { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
+             ],
+               password: [{ validator: validatePass, trigger: 'blur' }],
+               ispassword: [{ validator: validatePass, trigger: 'blur' }],
+                captcha: [ 
+               { required: true, trigger: 'blur', message: '请输入验证码' } ,
+              { min:4 , max: 4, message: '长度为4字符', trigger: 'blur' }
+               ]
+
+
+             }
         }
     },
     created(){
@@ -160,50 +192,65 @@ export default {
         },
         submitlogin(){
 
+this.$refs.loginFormRef.validate(async valid=>{
+  // console.log(valid);
+   if(!valid) return;
+      const result=await reqLogin(this.loginForm)
+  this.url="http://localhost:3000/captcha?"+Math.random()
+this.$refs.loginFormRef.resetFields();
+this.ispassword=''
+        if(result.data.code===0) {
+ window.sessionStorage.setItem("token",result.data.data.token);
+ this.$message.success('用户登录成功')
+this.$router.push('/home')
+}else{
+ this.$message.error('用户登录失败')
 
+
+}})
  // this.$refs.loginFormRef.validate(async valid=>{
  //  // console.log(valid);
  //   if(!valid) return;
 
- //this.$http.post('http://localhost:3000/login',this.loginForm);
+ //this.$http.post('http://localhost:3000/login',this.username,this.password,this.captcha);
  // this.$http.post("login",this.loginForm).then((res)=>{
  //  console.log(res)
  // })
- this.$http({
-                method: 'post',
-                url: '/login',
-                data: this.loginForm,
-                headers: {
-                   "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-                    //'token': localStorage.getItem('token') //缓存的token
-                },
-                transformRequest: [function (data) {   
-                 return qs.stringify(data)
-  }],
-            }).then((res)=>{
-                console.log(res.data);
-            }).catch(console.log('errs'))
+ // this.$http({
+ //                method: 'post',
+ //                url: '/login',
+ //                data:this.username,
+ //                headers: {
+ //                   "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+ //                    //'token': localStorage.getItem('token') //缓存的token
+ //                }
+                
 
-            
-        }
-//  headers: {
+ //            }).then((res)=>{
+ //                console.log(res.data);
+ //            }).catch(console.log('errs'))
 
-//                 "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
-
-//             }
-
- //  this.$http.get("http://localhost:3000/").then((data)=>{
- //    console.log(data)
- //  })
-   // if(res.meta.status!==200)return this.$message.error('登陆失败')
-   // this.$message.success('登陆成功');
- // console.log(res);
-//将token存储到本地session存储中
- //window.sessionStorage.setItem("token",res.data.token);
-//编程式导航
- //this.$router.push("/home");
- // });
-        
+    // this.$http.post('http://localhost:3000/login',this.loginForm);   
+        },
+  submitregister(){
+this.$refs.registerFormRef.validate(async valid=>{
+  // console.log(valid);
+   if(!valid) return;
+  const result= await reqRegister(this.loginForm)
+    this.url="http://localhost:3000/captcha?"+Math.random()
+    this.$refs.registerFormRef.resetFields();
+        if(result.data.code===0) {
+          const user = result.data.data
+          // 将user保存到vuex的state
+         // this.$store.dispatch('recordUser', user)
+        this.$message.success('用户注册成功')
+          // 去个人中心界面
+      }    
+      else {
+         this.$message.error('用户注册失败')
+      }
+    })
+  }
 
     },
     components:{
@@ -211,7 +258,27 @@ export default {
     }
 }
 </script>
+
 <style lang="less"type>
+ .all{
+            background: radial-gradient(200% 100% at bottom center, #f7f7b6, #e96f92, #75517d, #1b2947);
+            background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6);
+            background-attachment: fixed;
+            overflow: hidden;
+            z-index: 999;
+            width:100%;
+           height: 720px;
+
+        }
+    
+        @keyframes rotate {
+            0% {
+                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+            }
+            100% {
+                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+            }
+        }
 p{
   color: white;
   opacity: 0.5;
@@ -229,7 +296,10 @@ p{
   justify-content: center;
 }
 
-
+.el-form-item__error{
+ font-size: 15px;
+ color:blue;
+}
 
         .box{
              display: flex;
@@ -290,7 +360,7 @@ position: relative;
 }
 
 .yzm{
-left: 120px;
+left: 90px;
 .el-input__inner{
   width: 160px;
   background-color: #ffffff00;

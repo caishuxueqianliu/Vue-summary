@@ -4,8 +4,11 @@
     <div class='header'>div</div>
     	   <div class='main'>
     <div class='left'>div</div>
- <div class='content'>    
-  
+ <div class='content'> 
+<Highlight :contents='contents' isClass='javascript'/>
+
+
+
  </div>
 
      </div>
@@ -16,11 +19,17 @@
 </template>
 
 <script>
+  import Highlight from '../components/highlight.vue'
 export default {
  
   data() {
     return {
-    token:''
+  contents:`var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})`
        }
    },
 
@@ -56,7 +65,9 @@ export default {
 
 computed:{},
 watch: {},
-components:{}
+components:{
+  Highlight
+}
 
 
 }

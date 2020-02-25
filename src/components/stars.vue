@@ -1,8 +1,10 @@
 <template>
+
     <div class="stars">
         <div class="star" ref="star"  v-for="(item,index) in starsCount" :key="index"></div>
         <!-- 在这里写入你的内容 -->
     </div>
+   
 </template>
 <script>
 export default {
@@ -37,22 +39,7 @@ export default {
 </script>
 <style lang="less"type>
 
- body {
-            background: radial-gradient(200% 100% at bottom center, #f7f7b6, #e96f92, #75517d, #1b2947);
-            background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6);
-            background-attachment: fixed;
-            overflow: hidden;
-            z-index: 999;
-        }
-        
-        @keyframes rotate {
-            0% {
-                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
-            }
-            100% {
-                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
-            }
-        }
+
         
         .stars {
             transform: perspective(500px);
