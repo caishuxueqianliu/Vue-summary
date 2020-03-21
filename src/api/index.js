@@ -8,3 +8,4 @@ const BASE_URL = '/api'
 // //query ？后   parmas 路径
 export const reqLogin = (loginForm) => axios.post(BASE_URL+'/login',{loginForm})
 export const reqRegister = (loginForm) => axios.post(BASE_URL+'/register',{loginForm})
+export const reqSubmit = (month,email) => axios.post(BASE_URL+'/data',{month,email})
