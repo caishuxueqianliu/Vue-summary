@@ -288,8 +288,7 @@ p{
 .el-input__inner{
   width: 400px;
   background-color: #ffffff00;
-  color:yellow;
-
+ 
 }
 .el-form{
   align-items: center;

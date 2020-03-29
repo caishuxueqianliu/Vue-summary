@@ -4,8 +4,15 @@
  */
  import axios from 'axios'
 //const BASE_URL = 'http://127.0.0.1:3000'
-const BASE_URL = '/api'
-// //query ？后   parmas 路径
-export const reqLogin = (loginForm) => axios.post(BASE_URL+'/login',{loginForm})
-export const reqRegister = (loginForm) => axios.post(BASE_URL+'/register',{loginForm})
-export const reqSubmit = (month,email) => axios.post(BASE_URL+'/data',{month,email})
+// const BASE_URL = '/api'
+// // //query ？后   parmas 路径
+// export const reqLogin = (loginForm) => axios.post(BASE_URL+'/login',{loginForm})
+// export const reqRegister = (loginForm) => axios.post(BASE_URL+'/register',{loginForm})
+// export const reqSubmit = (datas) => axios.post(BASE_URL+'/data',{datas})
+// export const reqDownload = () => axios.get(BASE_URL+'/download')
+
+
+
+
+ export const reqSubmit = (datas) => axios.post('http://localhost:3000/data',{datas})
+export const reqDownload = () => axios.get('http://localhost:3000/download')
