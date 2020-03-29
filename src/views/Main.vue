@@ -1,6 +1,6 @@
 <template>
 
-  <div class="login">  
+  <!-- <div class="login">  
     <div class='header'>div</div>
     	   <div class='main'>
     <div class='left'>div</div>
@@ -15,7 +15,11 @@
  <div class=footer>div</div>
 
  
- </div>
+ </div> -->
+  <form action="/api/dlxx" method="post" enctype="multipart/form-data">
+ <input type="file" name='file'>
+     <input type="submit" value="上传文件" @click='submit'>
+</form>
 </template>
 
 <script>
