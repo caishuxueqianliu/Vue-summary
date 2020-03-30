@@ -46,7 +46,7 @@
     name='pic1'
 drag
  class="upload-demo"
-      action='http://localhost:3000/uploads'
+      action='http://192.168.200.170:3000/uploads'
   :show-file-list="false"
   :on-success="handleAvatarSuccess1">
   <img v-if="imageUrl1" :src="imageUrl1" class="avatar">
@@ -62,7 +62,7 @@ drag
 drag
  name='pic2'
  class="upload-demo"
-      action='http://localhost:3000/uploads'
+      action='http://192.168.200.170:3000/uploads'
   :show-file-list="false"
   :on-success="handleAvatarSuccess2">
   <img v-if="imageUrl2" :src="imageUrl2" class="avatar">
@@ -77,7 +77,7 @@ drag
 drag
  name='pic3'
  class="upload-demo"
-      action='http://localhost:3000/uploads'
+      action='http://192.168.200.170:3000/uploads'
   :show-file-list="false"
   :on-success="handleAvatarSuccess3">
   <img v-if="imageUrl3" :src="imageUrl3" class="avatar">
@@ -93,7 +93,7 @@ drag
 drag
  name='pic4'
  class="upload-demo"
-      action='http://localhost:3000/uploads'
+      action='http://192.168.200.170:3000/uploads'
   :show-file-list="false"
   :on-success="handleAvatarSuccess4">
   <img v-if="imageUrl4" :src="imageUrl4" class="avatar">
@@ -108,7 +108,7 @@ drag
 drag
  name='skxx'
  class="upload-demo"
-      action='http://localhost:3000/uploads'
+      action='http://192.168.200.170:3000/uploads'
   :show-file-list="false"
   :on-success="handleAvatarSuccess5">
   <img v-if="imageUrl5" :src="imageUrl5" class="avatar">
@@ -131,7 +131,7 @@ name='file1'
   ref="upload"
   drag
 
-    action='http://localhost:3000/uploads'
+    action='http://192.168.200.170:3000/uploads'
       list-type="picture-card"
   :auto-upload="true">
  
@@ -144,7 +144,7 @@ name='file1'
 name='file2'
   class="upload-demo"
   drag
-    action='http://localhost:3000/uploads'
+    action='http://192.168.200.170:3000/uploads'
       list-type="picture-card"
   :auto-upload="true">
   

@@ -14,5 +14,5 @@
 
 
 
- export const reqSubmit = (datas) => axios.post('http://localhost:3000/data',{datas})
-export const reqDownload = () => axios.get('http://localhost:3000/download')
+ export const reqSubmit = (datas) => axios.post('http://192.168.200.170:3000/data',{datas})
+export const reqDownload = () => axios.get('http://192.168.200.170:3000/download')
